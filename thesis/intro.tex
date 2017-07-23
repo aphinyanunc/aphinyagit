@@ -1,0 +1,52 @@
+\setlength{\footskip}{8mm}
+
+\chapter{Introduction}
+
+\textit{Humans use their eyes to capture images and send visual information to their brains to see and visually sense the world around them. Computer vision is the science that attempts to understand the world as humans do.}
+
+\section{Overview}
+
+According to the estimates of the World Health Organization (WHO), every year, around 1.25 million people die because of road traffic crashes. Between 20 and 50 million more people are disabled because they got in an accident on the roads. They can not do ordinary work as a result of their injuries. Moreover, oftentimes, family members have to take time from work or school to take care of them.
+
+There are many causes of road traffic crashes. The main cause is human error or bad behaviour of drivers such as over speeding, wrong-way driving, driving under the influence of alcohol or other psychoactive substances, and non-use of motorcycle helmets or seat belts. Wrong-way driving happens when a driver wants to use the shortest path to reach a destination, regardless of traffic rules, increasing the risk of accidents.
+
+To prevent this problem, law enforcement is a good solution, and governments already have traffic officers in place to penalize offenders. But strict and ubiquitous enforcement would require many police officers everywhere. 
+Computer vision can enable advanced technological solutions to help improve the situation through automated wrong-way driver ticketing, as one possibility. Therefore, in this study, I consider wrong-way driving monitoring by computer vision combined with a law enforcement system to help solve the problem of wrong-way driving.
+
+\section{Problem Statement}
+
+According to the WHO, statistics on the number of road traffic crashes is high. Governments try to solve this problem by law enforcement, and in many places, they allow automated ticketing. One behaviour leading to accidents is wrong-way driving. 
+
+Recently, computer vision has developed many technological solutions that may help. Background subtraction \cite{piccardi2004background} is one method of moving object detection. Furthermore, computer vision and image processing combined with machine learning for detection, tracking, and classification are also possible solutions. \shortciteA{forthoffer1996automatic} present a new an automatic incident wrong-way vehicle detection system using image processing. There has been a great deal of research about moving object detection. For example, \shortciteA{paragios2000geodesic} present geodesic active contours and level sets for the detection and tracking of moving objects.
+ 
+Optical flow \cite{horn1981determining} is another useful computer vision technology. It implements the idea of measuring the motion of objects in the scene. \shortciteA{monteiro2007wrongway} propose wrong-way driver detection based on optical flow. The basic idea is good; optical flow is good for estimating the direction of motion of an object in the scene. However, optical flow is not very useful for identifying an object, because it only works with points in the image sequence. So while it might work well for individual vehicles with little occlusion viewed from a high height, it is not easy to group moving points into individual objects, in more crowded scenes, and it may give wrong groupings when objects are close to each other.
+ 
+One of the most important considerations in building a system for law enforcement for wrong-way driving detection is the identification of the vehicle so that we can send a ticket to the vehicle owner.\newline
+
+\section{Objectives}
+As the main objective of my research, I would like to develop a system enabling automated detection and processing of wrong-way driving violations with minimal user set up and calibration under crowded traffic conditions. Towards the main objective, in this special study, I will:\newline 
+\tab \hspace{8mm}1. Study state of the art methods for estimating motion of objects in a 2D projection of a 3D scene under crowded conditions.\newline 
+\tab \hspace{8mm}2. Study state of the art methods for detecting wrong-way driving vehicles.\newline 
+\tab \hspace{8mm}3. Explore existing and possible methods for detecting and ticketing wrong-way driving vehicles with a case study prototype.
+ 
+\section{Limitations and Scope}
+The study is limited to the following:
+\begin{itemize}
+  \item Study of the possible ways to detect wrong-way driving. I only focus on motion estimation for rigid 3D objects moving parallel to a ground plane.
+  \item The experiment is preliminary and not expected to be a production-ready solution.
+\end{itemize}
+
+
+\section{Thesis Outline}
+
+I organize the rest of this study as follows.
+
+In Chapter \ref{ch:literature-review}, I provide a literature review.
+
+In Chapter \ref{ch:methodology}, I document a preliminary prototype wrong-way driving detection system.
+
+In Chapter \ref{ch:results}, I provide a plan for my thesis study.
+
+
+
+\FloatBarrier

@@ -1,0 +1,212 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{%
+Dalal%
+\ \BBA{} Triggs%
+}{%
+Dalal%
+\ \BBA{} Triggs%
+}{%
+{\protect\APACyear{2005}}%
+}]{%
+dalal2005histograms}%
+\APACinsertmetastar{%
+dalal2005histograms}%
+Dalal, N.%
+\BCBT{}\ \BBA{} Triggs, B.%
+%
+\newblock{}\BBOP{}2005\BBCP{}.
+\newblock{}\BBOQ{}Histograms of oriented gradients for human detection.\BBCQ{}
+\newblock{}\BIn{} \Bem{{IEEE} computer society conference on computer vision
+  and pattern recognition ({CVPR})}\ (\BPGS\ 886--893).
+\newblock{}
+
+\bibitem[\protect\citeauthoryear{%
+{Deep Learning Development Team}%
+}{%
+{Deep Learning Development Team}%
+}{%
+{\protect\APACyear{2017}}%
+}]{%
+deeplearing}%
+\APACinsertmetastar{%
+deeplearing}%
+{Deep Learning Development Team}.%
+%
+\newblock{}\BBOP{}2017\BBCP{}.
+\newblock{}\Bem{Deep learning documentation.}
+\newblock{}
+
+\bibitem[\protect\citeauthoryear{%
+Forthoffer%
+, Bouzar%
+, Lenoir%
+, Blosseville%
+\BCBL{}\ \BBA{} Aubert%
+}{%
+Forthoffer%
+\ \protect\BOthers{.}}{%
+{\protect\APACyear{1996}}%
+}]{%
+forthoffer1996automatic}%
+\APACinsertmetastar{%
+forthoffer1996automatic}%
+Forthoffer, M.%
+, Bouzar, S.%
+, Lenoir, F.%
+, Blosseville, J.%
+\BCBL{}\ \BBA{} Aubert, D.%
+%
+\newblock{}\BBOP{}1996\BBCP{}.
+\newblock{}\BBOQ{}Automatic incident detection: Wrong-way vehicle detection
+  using image processing.\BBCQ{}
+\newblock{}\BIn{} \Bem{World congress on intelligent transport systems:
+  Realizing the future.}
+\newblock{}
+
+\bibitem[\protect\citeauthoryear{%
+Girshick%
+, Donahue%
+, Darrell%
+\BCBL{}\ \BBA{} Malik%
+}{%
+Girshick%
+\ \protect\BOthers{.}}{%
+{\protect\APACyear{2014}}%
+}]{%
+girshick2014rich}%
+\APACinsertmetastar{%
+girshick2014rich}%
+Girshick, R.%
+, Donahue, J.%
+, Darrell, T.%
+\BCBL{}\ \BBA{} Malik, J.%
+%
+\newblock{}\BBOP{}2014\BBCP{}.
+\newblock{}\BBOQ{}Rich feature hierarchies for accurate object detection and
+  semantic segmentation.\BBCQ{}
+\newblock{}\BIn{} \Bem{Proceedings of the {IEEE} conference on computer vision
+  and pattern recognition}\ (\BPGS\ 580--587).
+\newblock{}
+
+\bibitem[\protect\citeauthoryear{%
+Horn%
+\ \BBA{} Schunck%
+}{%
+Horn%
+\ \BBA{} Schunck%
+}{%
+{\protect\APACyear{1981}}%
+}]{%
+horn1981determining}%
+\APACinsertmetastar{%
+horn1981determining}%
+Horn, B.~K.%
+\BCBT{}\ \BBA{} Schunck, B.~G.%
+%
+\newblock{}\BBOP{}1981\BBCP{}.
+\newblock{}\BBOQ{}Determining optical flow.\BBCQ{}
+\newblock{}\Bem{Artificial Intelligence}, \Bem{17}(1-3), 185--203.
+
+\bibitem[\protect\citeauthoryear{%
+Monteiro%
+, Ribeiro%
+, Marcos%
+\BCBL{}\ \BBA{} Batista%
+}{%
+Monteiro%
+\ \protect\BOthers{.}}{%
+{\protect\APACyear{2007}}%
+}]{%
+monteiro2007wrongway}%
+\APACinsertmetastar{%
+monteiro2007wrongway}%
+Monteiro, G.%
+, Ribeiro, M.%
+, Marcos, J.%
+\BCBL{}\ \BBA{} Batista, J.%
+%
+\newblock{}\BBOP{}2007\BBCP{}.
+\newblock{}\BBOQ{}Wrongway drivers detection based on optical flow.\BBCQ{}
+\newblock{}\BIn{} \Bem{{IEEE} international conference on image processing
+  ({ICIP})}\ (\BPGS\ V--141).
+\newblock{}
+
+\bibitem[\protect\citeauthoryear{%
+{OpenCV Development Team}%
+}{%
+{OpenCV Development Team}%
+}{%
+{\protect\APACyear{2017}}%
+}]{%
+itseez2017theopencv}%
+\APACinsertmetastar{%
+itseez2017theopencv}%
+{OpenCV Development Team}.%
+%
+\newblock{}\BBOP{}2017\BBCP{}.
+\newblock{}\Bem{The {OpenCV} reference manual.}
+\newblock{}
+
+\bibitem[\protect\citeauthoryear{%
+Paragios%
+\ \BBA{} Deriche%
+}{%
+Paragios%
+\ \BBA{} Deriche%
+}{%
+{\protect\APACyear{2000}}%
+}]{%
+paragios2000geodesic}%
+\APACinsertmetastar{%
+paragios2000geodesic}%
+Paragios, N.%
+\BCBT{}\ \BBA{} Deriche, R.%
+%
+\newblock{}\BBOP{}2000\BBCP{}.
+\newblock{}\BBOQ{}Geodesic active contours and level sets for the detection and
+  tracking of moving objects.\BBCQ{}
+\newblock{}\Bem{{IEEE} Transactions on Pattern Analysis and Machine
+  Intelligence}(3), 266--280.
+
+\bibitem[\protect\citeauthoryear{%
+Piccardi%
+}{%
+Piccardi%
+}{%
+{\protect\APACyear{2004}}%
+}]{%
+piccardi2004background}%
+\APACinsertmetastar{%
+piccardi2004background}%
+Piccardi, M.%
+%
+\newblock{}\BBOP{}2004\BBCP{}.
+\newblock{}\BBOQ{}Background subtraction techniques: {A} review.\BBCQ{}
+\newblock{}\BIn{} \Bem{{IEEE} international conference on systems, man and
+  cybernetics}\ (\BPGS\ 3099--3104).
+\newblock{}
+
+\bibitem[\protect\citeauthoryear{%
+Viola%
+\ \BBA{} Jones%
+}{%
+Viola%
+\ \BBA{} Jones%
+}{%
+{\protect\APACyear{2001}}%
+}]{%
+viola2001rapid}%
+\APACinsertmetastar{%
+viola2001rapid}%
+Viola, P.%
+\BCBT{}\ \BBA{} Jones, M.%
+%
+\newblock{}\BBOP{}2001\BBCP{}.
+\newblock{}\BBOQ{}Rapid object detection using a boosted cascade of simple
+  features.\BBCQ{}
+\newblock{}\BIn{} \Bem{{IEEE} computer society conference on computer vision
+  and pattern recognition ({CVPR}).}
+\newblock{}
+
+\end{thebibliography}
