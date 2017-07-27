@@ -66,6 +66,24 @@ Forthoffer, M.%
 
 \bibitem[\protect\citeauthoryear{%
 Girshick%
+}{%
+Girshick%
+}{%
+{\protect\APACyear{2015}}%
+}]{%
+girshick2015fast}%
+\APACinsertmetastar{%
+girshick2015fast}%
+Girshick, R.%
+%
+\newblock{}\BBOP{}2015\BBCP{}.
+\newblock{}\BBOQ{}Fast r-cnn.\BBCQ{}
+\newblock{}\BIn{} \Bem{Proceedings of the {IEEE} international conference on
+  computer vision}\ (\BPGS\ 1440--1448).
+\newblock{}
+
+\bibitem[\protect\citeauthoryear{%
+Girshick%
 , Donahue%
 , Darrell%
 \BCBL{}\ \BBA{} Malik%

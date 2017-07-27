@@ -39,12 +39,12 @@ The nearest neighbor decision rule assigns a label to an unclassified sample poi
 \end{figure}
 
 \subsection{Support Vector Machines}
-A support vector machine (SVM) is a feature-based classifier. Suppose we have a set of given data points, each belonging to one of two classes, and the goal is to decide which class a new data point is in SVMs use linear hyperplanes for classification. There are many possible hyperplanes that might classify (separate) the training data correctly. Support vector machines choose the unique hyperplane that provides the largest separation of the training data from the hyperplane, as shown for example in Figure~\ref{fig:svm}. When the training data are not linearly separable, the optimization of the hyperplane is more complicated, but still can be modeled as a constrained quadratic optimization. Support vector machines can induce non-linear classification boundaries due to the \textquotedblleft kernel trick" and do not require a large amount of training data.
+A support vector machine (SVM) is a feature-based classifier. Suppose we have a set of given data points, each belonging to one of two classes, and the goal is to decide which class a new data point is in. SVMs use linear hyperplanes for classification. There are many possible hyperplanes that might classify (separate) the training data correctly. Support vector machines choose the unique hyperplane that provides the largest separation of the training data from the hyperplane, as shown for example in Figure~\ref{fig:svm}. When the training data are not linearly separable, the optimization of the hyperplane is more complicated, but still can be modeled as a constrained quadratic optimization. Support vector machines can induce non-linear classification boundaries due to the \textquotedblleft kernel trick" and do not require a large amount of training data.
 
 \begin{figure}[t]
   \centering
   \includegraphics[width=2in]{figures/svm.jpg}   
-  \caption[svm]{Example of large margin classification with a linear hyperplane.}
+  \caption[svm]{Example of large margin classification with a linear hyperplane. H1 does not separate the classes. H2 does separate the classes, but small margin. H3 separates the classes with the maximum margin. }
   \label{fig:svm}
 \end{figure}
 
@@ -77,7 +77,7 @@ Object detection using Haar feature-based cascades is one of the most efficient 
 
 Positive images are images of an object, and negative images are images without that object. In training, we extract the same set of features from both positive and negative images. Each feature is a single value extracted using a fixed binary kernel as shown in Figure~\ref{fig:haar}.
 
-A large set of possible sizes and locations of each kernel are considered, giving a huge number of possible kernels making the training process quite heavy. The trained model might contain a large number of features, which would make it correspondingly inefficient. To increase the efficiency of feature computionation, integral images are used as a memoization method enabling calculation of sums of intensities across rectangular region in constant time regardless of block size. The new problem is then to find which is a good feature, because a good feature should focus on the essential region of the object only. To select features, we use the Adaboost committee building algorithm. The method applies each and every feature to all training images. For each feature, we find the best threshold for classifying the object as positive or negative. Each individual feature in the model is a \textquotedblleft weak classifier" that has same level error of its weighted training set. Different weightings of the training set give different optimal weak classifiers. The best classifier is them a weighted sum of the weak classifiers. Apply all features to each window is not a good idea. This we need Cascade of Classifiers to group the features into different stages of classifiers and apply one-by-one. If a window fails the first stage we do not consider remaining feature on it. The window which passes all stages will be the interest object.
+A large set of possible sizes and locations of each kernel are considered, giving a huge number of possible kernels, making the training process quite heavy. The trained model might contain a large number of features, which would make it correspondingly inefficient. To increase the efficiency of feature computation, integral images are used as a memoization method enabling calculation of sums of intensities across rectangular region in constant time regardless of block size. The new problem is then to find which is a good feature, because a good feature should focus on the essential region and distinctive aspects of the object only. To select features, we use the Adaboost committee-building algorithm. The method applies each and every feature to all training images. For each feature, we find the best threshold for classifying the object as positive or negative. Each individual feature in the model is a \textquotedblleft weak classifier" that has some level of error over its weighted training set. Different weightings of the training set give different optimal weak classifiers. The best classifier is then a weighted sum of the weak classifiers. Applying a complete committee of weak classifier to every window in an image is not a good idea. To accelerate the computation, we use a cascade of classifiers to group the features into different stages of classifiers and apply each stage one-by-one. If a window fails in first stage, we do not need to consider the remaining stages. Windows that pass though all stages are classified as the object of interest.
 
 \begin{figure}[t]
   \centering
@@ -101,9 +101,9 @@ shows the maximum positive SVM weight in the block centred on the pixel. (c) Lik
 \end{figure}
 
 \subsection{Region-based CNNs}
-Region-based CNNs (R-CNNs) \cite{girshick2014rich} combine region proposals with convolutional neural networks (CNNs). When an input image is presented, the system extracts bottom-up region proposals to localize and segment objects. Then it computes features for each proposal by passing each proposal to a convolution neural network. Finally, each region is classified using class-specific linear SVMs. This method yields good results, but it requires a large amount of training data. An overview of the system is shown in Figure~\ref{fig:rcnn}.
+Region-based CNNs (R-CNNs) \cite{girshick2014rich} combine region proposals with convolutional neural networks (CNNs). When an input image is presented, the system extracts bottom-up region proposals to localize and segment objects. Then it computes features for each proposal and classifier each proposal by passing each proposal to a convolution neural network. Finally, each region is classified using class-specific linear SVMs. This method yields good results, but it requires a large amount of training data. An overview of the system is shown in Figure~\ref{fig:rcnn}.
 
-For training data, we formed a set of images and boxes that includes all selective search and ground-truth boxes from validation together with up to $N$ ground-truth boxes per class from train. Training data is required for three procedures in R-CNN: (1) CNN find-tuning, (2) detector SVM training, and (3) bounding-box regressor training. Linear SVMs are used to review the definitions briefly, for fine-tuning. 
+For training data, we form a set of images and boxes that include all selective search and ground-truth boxes from validation together with up to $N$ ground-truth boxes per class from train. Training data are required for three procedures in R-CNN: (1) CNN fine-tuning, (2) detector SVM training, and (3) bounding-box regressor training. Linear SVMs are used to review the definitions briefly, for fine-tuning. 
 
 \begin{figure}[t]
   \centering
@@ -113,7 +113,7 @@ For training data, we formed a set of images and boxes that includes all selecti
 \end{figure}
 
 \subsection{FAST-RCNNs}
-Fast Region-based Convolutional Network method (Fast R-CNN) by \shortciteA{girshick2015fast} builds on R-CNNs to improve training and testing speed while also increasing detection accuracy. Training models in multi-stage pipelines are slow and inelegant. R-CNN is slow because it performs a ConvNet forward pass for each object proposal, without sharing computation. Fast R-CNN takes an input image and multiple regions of interest (RoIs) into a fully convolutional network. Each ROI is pooled into a fixed-size feature map and then mapped to a feature vector by fully connected layers. The network has two output vectors per RoI: softmax probabilities and per-class bounding-box regression offsets. An architecture is shown in Figure~\ref{fig:fastrcnn}. 
+The Fast Region-based Convolutional Network method (Fast R-CNN) by \shortciteA{girshick2015fast} builds on R-CNNs to improve training and testing speed while also increasing detection accuracy. Training models in multi-stage pipelines are slow and inelegant. R-CNNs are slow because they perform a ConvNet forward pass for each object proposal, without sharing computation. Fast R-CNN takes an input image and multiple regions of interest (RoIs) as input to a fully convolutional network. Each ROI is pooled into a fixed-size feature map and then mapped to a feature vector by fully connected layers. The network has two output vectors per RoI: a vector softmax probabilities and a vector of per-class bounding-box regression offsets. The architecture of the fast R-CNN is shown in Figure~\ref{fig:fastrcnn}. 
 
 \begin{figure}[t]
   \centering
@@ -143,21 +143,22 @@ We perform a Taylor series approximation
   {\rm } & {I(x+dx,y+dy,t+dt) \approx I(x,y,t) + \frac{\partial I}{\partial x}dx+\frac{\partial I}{\partial y}d y+\frac{\partial I}{\partial t}dt}.\\ 
 \end{array}
 \]
-From equation \eqref{eq:2.1}, since ${I(x,y,t)} = I(x+dx,y+dy,t+dt) = 0$, and dividing by $dt$ we obtain
+From equation \eqref{eq:2.1}, since ${I(x,y,t)} - I(x+dx,y+dy,t+dt) = 0$, dividing by $dt$, we obtain
 \[
 \begin{array}{lc}
-  {\rm } & {\frac{\partial I}{\partial x}\frac{dx}{dt}+\frac{\partial I}{\partial y}\frac{d y}{d t}+\frac{\partial I}{\partial t}\frac{dt}{dt} = 0}.\\ 
+  {\rm } & {\frac{\partial I}{\partial x}\frac{dx}{dt}+\frac{\partial I}{\partial y}\frac{d y}{d t}+\frac{\partial I}{\partial t}\frac{dt}{dt} = 0},\\ 
 \end{array}
 \]
+which we rewrite as
 \[
 \begin{array}{lc}
-  {\rm } & {f_xu + f_yv+ f_t }= 0 \\ 
+  {\rm } & {f_xu + f_yv+ f_t }= 0, \\ 
 \end{array}
 \]
-where:
+where
 \[
 \begin{array}{lc}
-  {\rm } & {f_x = \frac{\partial I}{\partial x} \; ; \; f_y = \frac{\partial I}{\partial y} ; \; f_y = \frac{\partial I}{\partial t}}\\ 
+  {\rm } & {f_x = \frac{\partial I}{\partial x} \; ; \; f_y = \frac{\partial I}{\partial y} ; \; f_t = \frac{\partial I}{\partial t}}\\ 
 \end{array}
 \]
 \[
@@ -165,18 +166,18 @@ where:
   {\rm } & {u = \frac{dx}{dt} \; ; \; v = \frac{dy}{dt}.}\\ 
 \end{array}
 \]
-The image gradients are $ f_x $ and $ f_y $. $ f_t $ is a gradient over time. $u$ and $v$ (the pixel motion) are the unknowns. One method to solve this problem is Lucas-Kanade.
+The image gradients are $ f_x $ and $ f_y $. $ f_t $ is a gradient over time. $u$ and $v$ (the motion of the pixel) are unknown. One method to solve this problem is Lucas-Kanade.
 
-According to the assumption, neighbouring pixels must have similar motion. Lucas-Kanade therefore takes a 3 $ \times $ 3 patch around each point. These nine pixels are all assumed to have the same motion, so we find  $ (f_x,f_y,f_t) $ for these nine points. We obtain have nine equations in the two unknown variables. The least-squares solution for this is shows below.
+According to the assumption that neighbouring pixels must have similar motion, Lucas-Kanade takes a 3 $ \times $ 3 patch around each point. These nine pixels are all assumed to have the same motion, so we calculate  $ (f_x,f_y,$ $ and $ $ f_t) $ for these nine points. We obtain nine equations in the two unknown variables. The least-squares solution for this over constrained system of linear equations is shows below.
 \[
 \begin{array}{lc}
   {\rm } & {  \begin{bmatrix} u \\ v \end{bmatrix} = \begin{bmatrix} \sum_{i}{f_{x_i}}^2 & \sum_{i}{f_{x_i} f_{y_i} } \\ \sum_{i}{f_{x_i} f_{y_i}} & \sum_{i}{f_{y_i}}^2 \end{bmatrix}^{-1} \begin{bmatrix} - \sum_{i}{f_{x_i} f_{t_i}} \\ - \sum_{i}{f_{y_i} f_{t_i}} \end{bmatrix}  }.\\ 
 \end{array}
 \]
-Large motions will be difficult to identify with this method. Hence, Lucas-Kanade is applied in a pyramid. At higher levels of the pyramid, small motions are ignored, and large motions of large regions become small motions of small regions that can be identified using the same method as above.
+Large motions will be difficult to identify with this method, as the assumption is no longer met. Hence, Lucas-Kanade is applied in a pyramid. At higher levels of the pyramid, small motions are ignored, and large motions of large regions become small motions of small regions that can be identified using the same method as above.
 
 \section{Traffic Flow Direction Learning}
-\shortciteA{monteiro2007wrongway} present work on a system whose basic idea is to get the correct direction of motion of vehicles in different lanes is during a learning period when it is assumed that traffic is flowing in the correct direction. Hence, the system learns the correct direction for each point in the scene. The authors propose a learning method that analyzes many frames. A Gaussian mixture model is learned for each block in the image by analysis of vehicles' movement over time. This method is good; it is able to detect vehicles circulating on the wrong side of the road, and it runs in real-time. But this method may have errors in identifying objects and may not work well on more crowded scenes. Learning process has shown in Figure~\ref{fig:learning}/
+\shortciteA{monteiro2007wrongway} present work on a system whose basic idea is to get the correct direction of motion of vehicles in different lanes is during a learning period when it is assumed that traffic is flowing in the correct direction. Hence, the system learns the correct direction for each point in the scene. The authors propose a learning method that analyzes many frames. A Gaussian mixture model is learned for each block in the image by analysis of vehicles' movement over time. This method is good; it is able to detect vehicles circulating on the wrong side of the road, and it runs in real-time. But this method may have errors in identifying objects and may not work well on more crowded scenes. Learning process has shown in Figure~\ref{fig:learning}.
  
 
 \begin{figure}[h]
@@ -190,12 +191,20 @@ Large motions will be difficult to identify with this method. Hence, Lucas-Kanad
 
 \section{Object Tracking}
 \label{Tracking}
-Object tracking has been a problem for research for many years. It is still not a solved problem, but there are many object trackers. Object trackers usually need some initialization step, which can be provided manually or automatically using an object detector.
+Object tracking has been a problem for research for many years. It is still not a solved problem, but there are many object trackers. Object trackers usually need some initialization step, which can be provided manually or automatically using an object detector. Tracking systems must address two basic problem: motion and matching.
+\begin{itemize}
+	\item Motion problem: predict the location of an image element using previous positions.
+	\item Matching problem: identify the image element within the designated search region.
+\end{itemize}
 
 \subsection{CAMSHIFT}
-CAMSHIFT is a practical application of the meanshift method to tracking of an object using a color histrogram. The basis idea of meanshift is a set of points that fit with a small window. A small window should move to the area of maximum number of points. But the problem of meanshift is a size of window is fixed. Camshift trys to solve this problem by adaption the window size and rotation of the target. It updates the size of window as, $ s = 2 \sqrt{\frac{M_{00}}{256}} $ when $s$ is size of window, $M_{00}$ is a zero order moment. Camshift also calculates the orientation of the best-fitting ellipse for the object. Then it applied meanshift with new scaled search window and previous window location. The method keeps executing this process until a threshold is reached.
+CAMSHIFT is a practical application of the meanshift method to tracking of an object using a color histrogram. Meanshift iteratively finds the mode of an arbitrary probability density using samples from the density and a kernel. Consider the situation in which we have a set of points. We are given a small window. The basic idea of meanshift is to identify the set of points that fit with the small window, then move the window should move to the area containing the maximum number of points. But a problem for the standard meanshift method is that when an object moves closer to camera, the object get bigger, making the fixed size window inapplicable. Camshift tries to solve this problem by adapting the window size and rotation of the target. It updates the size of the window as $ s = 2 \sqrt{\frac{M_{00}}{256}} $ where $M_{00}$ is the zero-order moment and $ s $ is the new window size. Camshift also calculates the orientation of the best-fitting ellipse for the object. It applies meanshift with the new scaled search window and a previous window location. The method keeps executing this process until a threshold is reached.
 
-\subsection{CAMSHIFT}
+\subsection{Foreground Blob Tracking}
+Foreground blob tracking analyzes the extracted foreground blobs from detection. Usually, foreground blob detection is not very accurate, requiring smoothing using a filter such as the Kalman filter.
+
+\subsubsection{Kalman Filter}
+A Kalman filter is an optimal estimator for the state of a system evolving stochastically over time. It is an algorithm that uses a series of measurements observed over time and is recursive, so that new measurements can be processed as they arrive. Suppose we are tracking a single object. After we detect the object, the detector will give us a candidate location of the object. To predict the next position of the player, we will need an object motion model. The detector may not be perfect, so  we assume there is noise in the object is location, called measurement noise. The motion model is also not perfect, thus we also have noise in the motion model, called process noise. To estimate the next position of an object, we need three parameters: the object motion model, the measurement noise, and the process noise.  
 
 \FloatBarrier
 

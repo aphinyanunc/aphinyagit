@@ -16,11 +16,12 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: references.bib
-Warning--I didn't find a database entry for "girshick2015fast"
 Warning--No publisher in dalal2005histograms
 Warning--No address in dalal2005histograms
 Warning--No publisher in forthoffer1996automatic
 Warning--No address in forthoffer1996automatic
+Warning--No publisher in girshick2015fast
+Warning--No address in girshick2015fast
 Warning--No publisher in girshick2014rich
 Warning--No address in girshick2014rich
 Warning--No publisher in monteiro2007wrongway
@@ -29,45 +30,45 @@ Warning--No publisher in piccardi2004background
 Warning--No address in piccardi2004background
 Warning--No publisher in viola2001rapid
 Warning--No address in viola2001rapid
-You've used 10 entries,
+You've used 11 entries,
             5327 wiz_defined-function locations,
-            1099 strings with 10128 characters,
-and the built_in function-call counts, 16305 in all, are:
-= -- 2138
-> -- 178
-< -- 721
-+ -- 614
-- -- 20
-* -- 958
-:= -- 2846
-add.period$ -- 50
-call.type$ -- 10
-change.case$ -- 56
+            1104 strings with 10235 characters,
+and the built_in function-call counts, 17663 in all, are:
+= -- 2336
+> -- 194
+< -- 748
++ -- 629
+- -- 22
+* -- 1011
+:= -- 3003
+add.period$ -- 56
+call.type$ -- 11
+change.case$ -- 62
 chr.to.int$ -- 0
-cite$ -- 32
-duplicate$ -- 276
-empty$ -- 635
-format.name$ -- 198
-if$ -- 3298
+cite$ -- 36
+duplicate$ -- 311
+empty$ -- 704
+format.name$ -- 209
+if$ -- 3619
 int.to.chr$ -- 0
-int.to.str$ -- 20
+int.to.str$ -- 22
 missing$ -- 0
-newline$ -- 201
-num.names$ -- 80
-pop$ -- 544
+newline$ -- 218
+num.names$ -- 88
+pop$ -- 601
 preamble$ -- 1
-purify$ -- 40
+purify$ -- 44
 quote$ -- 0
-skip$ -- 1002
+skip$ -- 1121
 stack$ -- 0
-substring$ -- 646
-swap$ -- 206
-text.length$ -- 43
+substring$ -- 677
+swap$ -- 231
+text.length$ -- 52
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1136
-warning$ -- 12
-while$ -- 43
+type$ -- 1272
+warning$ -- 14
+while$ -- 47
 width$ -- 0
-write$ -- 301
-(There were 13 warnings)
+write$ -- 324
+(There were 14 warnings)
