@@ -28,47 +28,49 @@ Warning--No publisher in monteiro2007wrongway
 Warning--No address in monteiro2007wrongway
 Warning--No publisher in piccardi2004background
 Warning--No address in piccardi2004background
+Warning--No publisher in ren2015faster
+Warning--No address in ren2015faster
 Warning--No publisher in viola2001rapid
 Warning--No address in viola2001rapid
-You've used 11 entries,
+You've used 12 entries,
             5327 wiz_defined-function locations,
-            1104 strings with 10235 characters,
-and the built_in function-call counts, 17663 in all, are:
-= -- 2336
-> -- 194
-< -- 748
-+ -- 629
-- -- 22
-* -- 1011
-:= -- 3003
-add.period$ -- 56
-call.type$ -- 11
-change.case$ -- 62
+            1109 strings with 10443 characters,
+and the built_in function-call counts, 19740 in all, are:
+= -- 2605
+> -- 221
+< -- 855
++ -- 720
+- -- 24
+* -- 1142
+:= -- 3366
+add.period$ -- 62
+call.type$ -- 12
+change.case$ -- 68
 chr.to.int$ -- 0
-cite$ -- 36
-duplicate$ -- 311
-empty$ -- 704
-format.name$ -- 209
-if$ -- 3619
+cite$ -- 40
+duplicate$ -- 346
+empty$ -- 773
+format.name$ -- 238
+if$ -- 4028
 int.to.chr$ -- 0
-int.to.str$ -- 22
+int.to.str$ -- 24
 missing$ -- 0
-newline$ -- 218
-num.names$ -- 88
-pop$ -- 601
+newline$ -- 241
+num.names$ -- 96
+pop$ -- 658
 preamble$ -- 1
-purify$ -- 44
+purify$ -- 48
 quote$ -- 0
-skip$ -- 1121
+skip$ -- 1247
 stack$ -- 0
-substring$ -- 677
-swap$ -- 231
-text.length$ -- 52
+substring$ -- 769
+swap$ -- 257
+text.length$ -- 59
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1272
-warning$ -- 14
-while$ -- 47
+type$ -- 1408
+warning$ -- 16
+while$ -- 54
 width$ -- 0
-write$ -- 324
-(There were 14 warnings)
+write$ -- 362
+(There were 16 warnings)

@@ -206,6 +206,31 @@ Piccardi, M.%
 \newblock{}
 
 \bibitem[\protect\citeauthoryear{%
+Ren%
+, He%
+, Girshick%
+\BCBL{}\ \BBA{} Sun%
+}{%
+Ren%
+\ \protect\BOthers{.}}{%
+{\protect\APACyear{2015}}%
+}]{%
+ren2015faster}%
+\APACinsertmetastar{%
+ren2015faster}%
+Ren, S.%
+, He, K.%
+, Girshick, R.%
+\BCBL{}\ \BBA{} Sun, J.%
+%
+\newblock{}\BBOP{}2015\BBCP{}.
+\newblock{}\BBOQ{}Faster r-cnn: Towards real-time object detection with region
+  proposal networks.\BBCQ{}
+\newblock{}\BIn{} \Bem{Advances in neural information processing systems}\
+  (\BPGS\ 91--99).
+\newblock{}
+
+\bibitem[\protect\citeauthoryear{%
 Viola%
 \ \BBA{} Jones%
 }{%

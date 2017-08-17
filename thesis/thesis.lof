@@ -3,8 +3,12 @@
 \contentsline {figure}{\numberline {2.3}{\ignorespaces svm}}{6}
 \contentsline {figure}{\numberline {2.4}{\ignorespaces cnn}}{7}
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Haar kernel }}{8}
-\contentsline {figure}{\numberline {2.6}{\ignorespaces HOG}}{8}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces HOG}}{9}
 \contentsline {figure}{\numberline {2.7}{\ignorespaces R-CNNs}}{9}
 \contentsline {figure}{\numberline {2.8}{\ignorespaces FAST R-CNNs}}{10}
-\contentsline {figure}{\numberline {2.9}{\ignorespaces Learning flow chart}}{11}
-\contentsline {figure}{\numberline {A.1}{\ignorespaces CCTV monitoring room in Appendix A.}}{20}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Faster R-CNNs}}{10}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces RPN}}{11}
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Learning flow chart}}{13}
+\contentsline {figure}{\numberline {2.12}{\ignorespaces kalman}}{15}
+\contentsline {figure}{\numberline {2.13}{\ignorespaces kalman}}{16}
+\contentsline {figure}{\numberline {A.1}{\ignorespaces CCTV monitoring room in Appendix A.}}{24}

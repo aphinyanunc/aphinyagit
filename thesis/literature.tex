@@ -44,7 +44,7 @@ A support vector machine (SVM) is a feature-based classifier. Suppose we have a 
 \begin{figure}[t]
   \centering
   \includegraphics[width=2in]{figures/svm.jpg}   
-  \caption[svm]{Example of large margin classification with a linear hyperplane. H1 does not separate the classes. H2 does separate the classes, but small margin. H3 separates the classes with the maximum margin. }
+  \caption[svm]{Example of large margin classification with a linear hyperplane. H1 does not separate the classes. H2 does separate the classes, but with a small margin. H3 separates the classes with a larger margin. }
   \label{fig:svm}
 \end{figure}
 
@@ -77,7 +77,11 @@ Object detection using Haar feature-based cascades is one of the most efficient 
 
 Positive images are images of an object, and negative images are images without that object. In training, we extract the same set of features from both positive and negative images. Each feature is a single value extracted using a fixed binary kernel as shown in Figure~\ref{fig:haar}.
 
-A large set of possible sizes and locations of each kernel are considered, giving a huge number of possible kernels, making the training process quite heavy. The trained model might contain a large number of features, which would make it correspondingly inefficient. To increase the efficiency of feature computation, integral images are used as a memoization method enabling calculation of sums of intensities across rectangular region in constant time regardless of block size. The new problem is then to find which is a good feature, because a good feature should focus on the essential region and distinctive aspects of the object only. To select features, we use the Adaboost committee-building algorithm. The method applies each and every feature to all training images. For each feature, we find the best threshold for classifying the object as positive or negative. Each individual feature in the model is a \textquotedblleft weak classifier" that has some level of error over its weighted training set. Different weightings of the training set give different optimal weak classifiers. The best classifier is then a weighted sum of the weak classifiers. Applying a complete committee of weak classifier to every window in an image is not a good idea. To accelerate the computation, we use a cascade of classifiers to group the features into different stages of classifiers and apply each stage one-by-one. If a window fails in first stage, we do not need to consider the remaining stages. Windows that pass though all stages are classified as the object of interest.
+A large set of possible sizes and locations of each kernel are considered, giving a huge number of possible kernels, making the training process quite heavy. The trained model might contain a large number of features, which would make it correspondingly inefficient. To increase the efficiency of feature computation, integral images are used as a memoization method enabling calculation of sums of intensities across rectangular region in constant time regardless of block size. 
+
+The new problem is then to find which is a good feature, because a good feature should focus on the essential region and distinctive aspects of the object only. To select features, we use the Adaboost committee-building algorithm. The method applies each and every feature to all training images. For each feature, we find the best threshold for classifying the object as positive or negative over the weighted training set. Each individual feature thus added to the model is a \textquotedblleft weak classifier" that has some level of error over its weighted training set. Different weightings of the training set give different optimal weak classifiers. The best classifier is then a weighted sum of the weak classifiers. 
+
+Applying a complete \textquotedblleft monolithic" committee of weak classifiers to every window in an image will normally achieve good accuracy is not a good idea, as it would be unnecessarily computationally intense. To accelerate the computation, we use a cascade of classifiers to group the features into separate stages and apply each stage sequentially. If a window fails in first stage, we do not need to consider it in the remaining stages. Windows that pass though all stages are classified as an instance of the object of interest.
 
 \begin{figure}[t]
   \centering
@@ -101,9 +105,8 @@ shows the maximum positive SVM weight in the block centred on the pixel. (c) Lik
 \end{figure}
 
 \subsection{Region-based CNNs}
-Region-based CNNs (R-CNNs) \cite{girshick2014rich} combine region proposals with convolutional neural networks (CNNs). When an input image is presented, the system extracts bottom-up region proposals to localize and segment objects. Then it computes features for each proposal and classifier each proposal by passing each proposal to a convolution neural network. Finally, each region is classified using class-specific linear SVMs. This method yields good results, but it requires a large amount of training data. An overview of the system is shown in Figure~\ref{fig:rcnn}.
-
-For training data, we form a set of images and boxes that include all selective search and ground-truth boxes from validation together with up to $N$ ground-truth boxes per class from train. Training data are required for three procedures in R-CNN: (1) CNN fine-tuning, (2) detector SVM training, and (3) bounding-box regressor training. Linear SVMs are used to review the definitions briefly, for fine-tuning. 
+Region-based CNNs (R-CNNs) \cite{girshick2014rich} combine region proposals with convolutional neural networks (CNNs). When an input image is presented, the system extracts bottom-up region proposals to localize and segment objects. R-CNN creates region proposals, using a process called Selective Search. It regardless of the size or aspect ratio of the candidate region and warp all pixels in a tight bounding box around it, and tries to group each size together by texture, color, or intensity to identify objects. Once the proposals are created, R-CNN warps the region to a standard square size and passes it through to a convolution neural network.
+Then each region is classified using class-specific linear SVMs. Linear SVMs are used to review the definitions briefly, for fine-tuning. Final step is find the true dimensions of the object. R-CNN runs a simple linear regression on the region proposal to generate tighter bounding box coordinates to get final result. This method yields good results, but it requires a large amount of training data. R-CNN requires a forward pass of the CNN for every single region proposal and also has to train three different models: the CNN to generate image features, the classifier to predicts the class, and the regression model to find the real dimension of the object. These are the reason to make R-CNN is slow. An overview of the system is shown in Figure~\ref{fig:rcnn}.
 
 \begin{figure}[t]
   \centering
@@ -112,8 +115,8 @@ For training data, we form a set of images and boxes that include all selective 
   \label{fig:rcnn}
 \end{figure}
 
-\subsection{FAST-RCNNs}
-The Fast Region-based Convolutional Network method (Fast R-CNN) by \shortciteA{girshick2015fast} builds on R-CNNs to improve training and testing speed while also increasing detection accuracy. Training models in multi-stage pipelines are slow and inelegant. R-CNNs are slow because they perform a ConvNet forward pass for each object proposal, without sharing computation. Fast R-CNN takes an input image and multiple regions of interest (RoIs) as input to a fully convolutional network. Each ROI is pooled into a fixed-size feature map and then mapped to a feature vector by fully connected layers. The network has two output vectors per RoI: a vector softmax probabilities and a vector of per-class bounding-box regression offsets. The architecture of the fast R-CNN is shown in Figure~\ref{fig:fastrcnn}. 
+\subsection{FAST R-CNNs}
+The Fast Region-based Convolutional Network method (Fast R-CNN) by \shortciteA{girshick2015fast} builds on R-CNNs to improve training and testing speed while also increasing detection accuracy. R-CNNs are slow because they perform a ConvNet forward pass for each object proposal, without sharing computation. Fast R-CNN try to do is just run the CNN once per image and share that computation. Fast R-CNN takes an input image and multiple regions of interest (RoIs) as input to a fully convolutional network. Each ROI is pooled into a fixed-size feature map and then mapped to a feature vector by fully connected layers. The second thing that Fast R-CNN do is join three model into one model. Fast R-CNN replaced the SVM classifier with a softmax layer on top of the CNN to output a classification. It also added a linear regression layer parallel to the softmax layer to output bounding box coordinates. Thus, the network has two output vectors per RoI: a vector softmax probabilities and a vector of per-class bounding-box regression offsets. The architecture of the fast R-CNN is shown in Figure~\ref{fig:fastrcnn}. 
 
 \begin{figure}[t]
   \centering
@@ -122,6 +125,21 @@ The Fast Region-based Convolutional Network method (Fast R-CNN) by \shortciteA{g
   \label{fig:fastrcnn}
 \end{figure}
 
+\subsection{Faster R-CNN}
+Faster R-CNN \cite{ren2015faster} is build from previous works like FAST R-CNN and R-CNN. In previous works the proposals were created using Selective Search, but it is slow process that was found to be the bottleneck of overall process. Faster R-CNN introduces a Region Proposal Network (RPN). An RPN is a fully convolutional network that simultaneously predicts object bounds and objectness scores at each position. Faster R-CNN reuses the same CNN results for region proposals instead of running a separate selective search algorithm as shown in Figure~\ref{fig:fasterrcnn}. The Region Proposal Network works by passing a sliding window over the CNN feature map and at each window, output K potential bounding boxes and scores for how good each of those boxes is expected to be. Then pass each bounding box that likely to be an object into Fast R-CNN to generate a classification and tightened bounding boxes.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=2in]{figures/fasterrcnn.jpg}  
+	\caption[Faster R-CNNs]{Faster R-CNN. Reprinted from \shortciteA{ren2015faster}. }
+	\label{fig:fasterrcnn}
+\end{figure}
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=3in]{figures/rpn.jpg}  
+	\caption[RPN]{Region Proposal Network (RPN). Reprinted from \shortciteA{ren2015faster}. }
+	\label{fig:rpn}
+\end{figure}
 
 \section{Optical Flow} 
 \label{Optical Flow}
@@ -166,21 +184,76 @@ where
   {\rm } & {u = \frac{dx}{dt} \; ; \; v = \frac{dy}{dt}.}\\ 
 \end{array}
 \]
-The image gradients are $ f_x $ and $ f_y $. $ f_t $ is a gradient over time. $u$ and $v$ (the motion of the pixel) are unknown. One method to solve this problem is Lucas-Kanade.
-
-According to the assumption that neighbouring pixels must have similar motion, Lucas-Kanade takes a 3 $ \times $ 3 patch around each point. These nine pixels are all assumed to have the same motion, so we calculate  $ (f_x,f_y,$ $ and $ $ f_t) $ for these nine points. We obtain nine equations in the two unknown variables. The least-squares solution for this over constrained system of linear equations is shows below.
+The image gradients are $ f_x $ and $ f_y $. $ f_t $ is a gradient over time. $u$ and $v$ (the motion of the pixel) are unknown. One method to solve this problem is Lucas-Kanade. The Lucas-Kanade method assumes that the spatial displacement of the image content between two successive frames is small. Thus the optical flow constraints can be assumed to hold for all of the pixels within a window centerd at $p$ (the pixel of interest). Letting $q_1, q_2, \hdots ,q_n$ be the pixels within the window, the common local image flow (velocity) vector $(u,v)$ must satisfy
+ \[
+ \begin{array}{lc}
+ {\rm } & {f_x(q_1)u + f_y(q_1)v} = - f_t(q_1) \\ 
+ \end{array}
+ \]
 \[
 \begin{array}{lc}
-  {\rm } & {  \begin{bmatrix} u \\ v \end{bmatrix} = \begin{bmatrix} \sum_{i}{f_{x_i}}^2 & \sum_{i}{f_{x_i} f_{y_i} } \\ \sum_{i}{f_{x_i} f_{y_i}} & \sum_{i}{f_{y_i}}^2 \end{bmatrix}^{-1} \begin{bmatrix} - \sum_{i}{f_{x_i} f_{t_i}} \\ - \sum_{i}{f_{y_i} f_{t_i}} \end{bmatrix}  }.\\ 
+{\rm } & {f_x(q_2)u + f_y(q_2)v} = - f_t(q_2) \\ 
 \end{array}
 \]
-Large motions will be difficult to identify with this method, as the assumption is no longer met. Hence, Lucas-Kanade is applied in a pyramid. At higher levels of the pyramid, small motions are ignored, and large motions of large regions become small motions of small regions that can be identified using the same method as above.
+\[
+\begin{array}{lc}
+{\rm } & \vdots \\ 
+\end{array}
+\]
+\[
+\begin{array}{lc}
+{\rm } & {f_x(q_n)u + f_y(q_n)v} = - f_t(q_n). \\ 
+\end{array}
+\]
+These equations can be written in matrix form $A\nu = b$, where
+\[
+A = \begin{bmatrix}
+f_x(q_1) & f_y(q_1)\\
+f_x(q_2) & f_y(q_2)\\
+\vdots&\vdots\\
+f_x(q_n) & f_y(q_n)
+\end{bmatrix}
+\nu = \begin{bmatrix}
+u \\
+v
+\end{bmatrix}
+b= \begin{bmatrix}
+-f_t(q_1)\\
+-f_t(q_2)\\
+\vdots \\
+-f_t(q_n)\\
+\end{bmatrix}
+\]
+The least squares solution for $\nu$ can be derived as  
+\[
+\begin{array}{lc}
+{\rm } & {A^TA\nu = A^Tb} \\ 
+\end{array}
+\]
+or
+\[
+\begin{array}{lc}
+{\rm } &  {\nu = (A^TA)^Tb}, \\ 
+\end{array}
+\]
+where $A^T$ is the transpose of matrix $A$. In particular, we obtain
+\[
+\begin{array}{lc}
+{\rm } & {  \begin{bmatrix} u \\ v \end{bmatrix} = \begin{bmatrix} \sum_{i}{f_{x_i}}^2 & \sum_{i}{f_{x_i} f_{y_i} } \\ \sum_{i}{f_{x_i} f_{y_i}} & \sum_{i}{f_{y_i}}^2 \end{bmatrix}^{-1} \begin{bmatrix} - \sum_{i}{f_{x_i} f_{t_i}} \\ - \sum_{i}{f_{y_i} f_{t_i}} \end{bmatrix}  }.\\ \tag{2.2}
+\label{eq:2.2}
+\end{array}
+\]
+
+
+According to the assumption that neighbouring pixels must have similar motion, Lucas-Kanade takes a 3 $ \times $ 3 patch around each point. These nine pixels are all assumed to have the same motion, so we calculate  $ (f_x,f_y,$ $ and $ $ f_t) $ for these nine points. We obtain nine equations in the two unknown variables according to the derivation above.
+
+Large motions will be difficult to identify with this method, as the fundamental assumption of small mention is no longer met. Hence, Lucas-Kanade is applied in a pyramid. At higher levels of the pyramid, small motions are ignored, and large motions of large regions become small motions of small regions that can be identified using the same method as above.
 
 \section{Traffic Flow Direction Learning}
 \shortciteA{monteiro2007wrongway} present work on a system whose basic idea is to get the correct direction of motion of vehicles in different lanes is during a learning period when it is assumed that traffic is flowing in the correct direction. Hence, the system learns the correct direction for each point in the scene. The authors propose a learning method that analyzes many frames. A Gaussian mixture model is learned for each block in the image by analysis of vehicles' movement over time. This method is good; it is able to detect vehicles circulating on the wrong side of the road, and it runs in real-time. But this method may have errors in identifying objects and may not work well on more crowded scenes. Learning process has shown in Figure~\ref{fig:learning}.
  
 
-\begin{figure}[h]
+\begin{figure}[t]
   \centering
   \includegraphics[width=3in]{figures/learning.jpg}  
   \caption[Learning flow chart]{Flow chart of the traffic flow direction learning process. Reprinted from  \shortciteA{monteiro2007wrongway}. }
@@ -198,13 +271,76 @@ Object tracking has been a problem for research for many years. It is still not 
 \end{itemize}
 
 \subsection{CAMSHIFT}
-CAMSHIFT is a practical application of the meanshift method to tracking of an object using a color histrogram. Meanshift iteratively finds the mode of an arbitrary probability density using samples from the density and a kernel. Consider the situation in which we have a set of points. We are given a small window. The basic idea of meanshift is to identify the set of points that fit with the small window, then move the window should move to the area containing the maximum number of points. But a problem for the standard meanshift method is that when an object moves closer to camera, the object get bigger, making the fixed size window inapplicable. Camshift tries to solve this problem by adapting the window size and rotation of the target. It updates the size of the window as $ s = 2 \sqrt{\frac{M_{00}}{256}} $ where $M_{00}$ is the zero-order moment and $ s $ is the new window size. Camshift also calculates the orientation of the best-fitting ellipse for the object. It applies meanshift with the new scaled search window and a previous window location. The method keeps executing this process until a threshold is reached.
+CAMSHIFT is a practical application of the meanshift method to tracking of an object using a color histogram. Meanshift iteratively finds the mode of an arbitrary probability density using samples from the density and a kernel. Consider the situation in which we have a set of points. We are given a small window. The basic idea of meanshift is to identify the set of points that fit with in the small window, then move the window to the area containing the highest density of points. But a problem for the standard meanshift method is that when an object moves closer to camera, the object gets bigger, and vice versa when the camera moves away from the object, making the fixed-size window inapplicable. CAMSHIFT tries to solve this problem by adapting the window size and rotation of the target. It updates the size of the window as $ s = 2 \sqrt{\frac{M_{00}}{256}} $, where $M_{00}$ is the zero-order moment and $ s $ is the new window size. CAMSHIFT also calculates the orientation of the best-fitting ellipse for the object. It applies meanshift with the new scaled search window and a previous window location. The method keeps executing this process until convergence is reached, as measured by a threshold on the shift of the window.
 
 \subsection{Foreground Blob Tracking}
-Foreground blob tracking analyzes the extracted foreground blobs from detection. Usually, foreground blob detection is not very accurate, requiring smoothing using a filter such as the Kalman filter.
+Foreground blob tracking analyzes foreground blobs detected by a background subtraction model. Usually, foreground blob detection is not very accurate, requiring smoothing using a filter such as the Kalman filter.
 
 \subsubsection{Kalman Filter}
-A Kalman filter is an optimal estimator for the state of a system evolving stochastically over time. It is an algorithm that uses a series of measurements observed over time and is recursive, so that new measurements can be processed as they arrive. Suppose we are tracking a single object. After we detect the object, the detector will give us a candidate location of the object. To predict the next position of the player, we will need an object motion model. The detector may not be perfect, so  we assume there is noise in the object is location, called measurement noise. The motion model is also not perfect, thus we also have noise in the motion model, called process noise. To estimate the next position of an object, we need three parameters: the object motion model, the measurement noise, and the process noise.  
+A Kalman filter is an optimal estimator for the state of a system evolving stochastically over time. It is an algorithm that uses a series of measurements observed over time and is recursive, so that new measurements can be processed as they arrive. The cycle of a Kalman filter is shown in Figure~\ref{fig:kalman}. Suppose we are tracking a single object. After we detect the object, the detector will give us a candidate location of the object. To predict the next position of the object, we need an object motion model. Furthermore, the detector may not be perfect, so  we assume there is noise in the object location, called measurement noise. The motion model is also not perfect, thus we also assume we will have noise in the motion model, called process noise. To estimate the next position of an object, we need three parameters: the object motion model, the measurement noise, and the process noise.
+
+\textbf{The initial state} of the object must be estimated somehow. Usually, we would use the first detection with the inverse of the sensor model as an initial state. Typically, the state includes the object's position and velocity in 2D or 3D, and the detector gives a noisy estimate of object's position, Usually in 2D only. This is the position measurement. Let $x(t)$ be the state vector, $z(t)$ is measurement, and $P_{t|t-1}$ be the process covariance matrix. Given the initial state $x_{0|0}$ and the initial uncertainty expressed as a Gaussian covariance matrix $P_{0|0}$ to describe the uncertainty in position, we begin prediction and correction.
+
+\textbf{Predict} 
+is the step of extrapolations the next state using the motion model. Prediction also updates the uncertainty about the object state.
+In the state prediction step, an estimate of the next state $ \hat{x}_{t|t-1} $ is obtained by multiplying the previous state estimate by the state transition matrix $(F)$. We can write equation as 
+\[
+\begin{array}{lc}
+{\rm } & {\hat{x}_{t|t-1}} = F_t \hat{x}_{t-1|t-1}.  
+\end{array}
+\]
+The covariance update is done by multiplying the covariance matrix from the previous iteration by the state transition matrix $F$ and by adding the process noise $Q$, which can be constant or dynamic. The prediction for $P$ is
+\[
+\begin{array}{lc}
+{\rm } & {P_{t|t-1}} = F_t P_{t-1|t-1} F_t^{T}+ Q_{t}.  
+\end{array}
+\]
+\textbf{Correct.} Here we perform incorporates a Kalman filter update, which includes a state update and an uncertainty update. First we obtain a noisy measurement $z(t)$. The noise is modeled by a single Gaussian covariance matrix $R_t$. To update the state using the measurement, we use the measurement sensor model $H$. To make a correction, we first calculate the prediction error, i.e., the difference between the predicted and observed sensor measurement. This is called the residual or innovation, denoted by $y_t$. The innovation or measurement residual is calculated as
+\[
+\begin{array}{lc}
+{\rm } & {\hat{y}_t = z_t - H_t \hat{x}_{t|t-1} ,} 
+\end{array}
+\]
+where $\hat{x}_{t|t-1}$ is the predicted measurement and $z_t$ is the actual measurement. The corresponding equation for the innovation residual covariance is 
+\[
+\begin{array}{lc}
+{\rm } & {S_t = H_t P_{t|t-1} H_t^{T} + R_t ,} 
+\end{array}
+\]
+where $P_{t|t-1}$ is a predicted covariance and $R_t$ is the correct measurement noise. The Kalman gain $(K)$ specifies how much we believe the prediction and how much we believe in the measurement. $K_t$ is calculated as 
+\[
+\begin{array}{lc}
+{\rm } & {K_t =  P_{t|t-1} H_t^{T}S_t^{-1} ,} 
+\end{array}
+\]
+where $S-t$ is the residual covariance. The Kalman gain is now used to obtain the first update to the state $x$ and covariance matrix $P$ as an equation
+\[
+\begin{array}{lc}
+{\rm } & {\hat{x}_{t|t} =  \hat{x}_{t|t-1} + K_t\hat{y}_{t}} 
+\end{array}
+\]
+\[
+\begin{array}{lc}
+{\rm } & {P_{t|t} =  (I- K_t + H_t)P_{t|t-1}.} 
+\end{array}
+\]
+
+When the correction step is finished, we repeat the prediction step, as shown in Figure~\ref{fig:kalmanprocess}.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=3in]{figures/kalmanprocess.jpg}  
+	\caption[kalman]{Overview of processing by a Kalman filter. An initial estimated of the state after posterior error distribution care recursively updated as new measurements arrive. }
+	\label{fig:kalmanprocess}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=4in]{figures/kalman.jpg}  
+	\caption[kalman]{The cycle of a Kalman filter. First the filter predicts the next state from the provided state, then if applicable, the noisy measurement information is incorporated in the correction phase. The cycle is repeated. }
+	\label{fig:kalman}
+\end{figure}
+
 
 \FloatBarrier
 
