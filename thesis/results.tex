@@ -1,28 +1,19 @@
 \setlength{\footskip}{8mm}
 
-\chapter{Experimental Results}
+\chapter{Conclusion}
 \label{ch:results}
 
-\textit{Some intro..}
 
-\section{Section Name in Experimental Results}
-\label{section-name-in-experimental-results}
 
-Table~\ref{tab:hmm-based-detection-results} shows a table.
 
-\begin{table}[t]
-  \caption[Text shown in the LOT.]{\small Some table.}
-  \begin{center}
-    \begin{tabular}{c|c|c|c|c|c|c}
-      \hline Batch method & TP & FP & TN & FN & TPR & FPR \\ \hline \hline
-      Local ($z$-scoring) & 24 & 42 & 444 & 0 & 1 & 0.086 \\ \hline
-      Local (LRT) & 24 & 486 & 0 & 0 & 1 & 1 \\ \hline 
-      Global ($z$-scoring) & 24 & 217 & 10 & 0 & 1 & 0.956 \\ \hline 
-      Global (LRT) & 24 & 223 & 4 & 0 & 1 & 0.982 \\ \hline
-    \end{tabular}
-  \end{center}
-  \label{tab:hmm-based-detection-results}
-\end{table} 
+\section{Conclusion}
+\label{Conclusion}
+In this special study, the system is one of the ways that can get the vehicle direction,but this system still has an error as shown in Figure~\ref{fig:errorfromOF}.
+Some directions are wrong and made the learning part confuse. Because optical flow needs two frames to calculate velocity, it can not have velocity in every frames. This is a limit of optical flow. Thus, the system needs to use the predictable values from Kalman filter.
+
+
+\section{Future Works}
+This special study implemented an algorithm for getting vehicle direction. This can improve to be a wrong-way driving detection. The suggestion for improving are filter out the error from optical flow and use a powerful algorithm for learning part.
 
 \FloatBarrier
 

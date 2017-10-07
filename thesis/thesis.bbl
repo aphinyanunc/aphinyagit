@@ -77,9 +77,9 @@ girshick2015fast}%
 Girshick, R.%
 %
 \newblock{}\BBOP{}2015\BBCP{}.
-\newblock{}\BBOQ{}Fast r-cnn.\BBCQ{}
+\newblock{}\BBOQ{}Fast {R-CNN}.\BBCQ{}
 \newblock{}\BIn{} \Bem{Proceedings of the {IEEE} international conference on
-  computer vision}\ (\BPGS\ 1440--1448).
+  computer vision ({CVPR})}\ (\BPGS\ 1440--1448).
 \newblock{}
 
 \bibitem[\protect\citeauthoryear{%
@@ -104,7 +104,7 @@ Girshick, R.%
 \newblock{}\BBOQ{}Rich feature hierarchies for accurate object detection and
   semantic segmentation.\BBCQ{}
 \newblock{}\BIn{} \Bem{Proceedings of the {IEEE} conference on computer vision
-  and pattern recognition}\ (\BPGS\ 580--587).
+  and pattern recognition ({CVPR})}\ (\BPGS\ 580--587).
 \newblock{}
 
 \bibitem[\protect\citeauthoryear{%
@@ -185,7 +185,7 @@ Paragios, N.%
 \newblock{}\BBOQ{}Geodesic active contours and level sets for the detection and
   tracking of moving objects.\BBCQ{}
 \newblock{}\Bem{{IEEE} Transactions on Pattern Analysis and Machine
-  Intelligence}(3), 266--280.
+  Intelligence}, \Bem{22}(3), 266--280.
 
 \bibitem[\protect\citeauthoryear{%
 Piccardi%
@@ -224,8 +224,8 @@ Ren, S.%
 \BCBL{}\ \BBA{} Sun, J.%
 %
 \newblock{}\BBOP{}2015\BBCP{}.
-\newblock{}\BBOQ{}Faster r-cnn: Towards real-time object detection with region
-  proposal networks.\BBCQ{}
+\newblock{}\BBOQ{}Faster {R-CNN}: Towards real-time object detection with
+  region proposal networks.\BBCQ{}
 \newblock{}\BIn{} \Bem{Advances in neural information processing systems}\
   (\BPGS\ 91--99).
 \newblock{}
@@ -237,19 +237,17 @@ Viola%
 Viola%
 \ \BBA{} Jones%
 }{%
-{\protect\APACyear{2001}}%
+{\protect\APACyear{2004}}%
 }]{%
-viola2001rapid}%
+viola2004robust}%
 \APACinsertmetastar{%
-viola2001rapid}%
+viola2004robust}%
 Viola, P.%
-\BCBT{}\ \BBA{} Jones, M.%
+\BCBT{}\ \BBA{} Jones, M.~J.%
 %
-\newblock{}\BBOP{}2001\BBCP{}.
-\newblock{}\BBOQ{}Rapid object detection using a boosted cascade of simple
-  features.\BBCQ{}
-\newblock{}\BIn{} \Bem{{IEEE} computer society conference on computer vision
-  and pattern recognition ({CVPR}).}
-\newblock{}
+\newblock{}\BBOP{}2004\BBCP{}.
+\newblock{}\BBOQ{}Robust real-time face detection.\BBCQ{}
+\newblock{}\Bem{International Journal of Computer Vision}, \Bem{57}(2),
+  137--154.
 
 \end{thebibliography}

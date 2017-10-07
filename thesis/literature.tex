@@ -17,11 +17,12 @@ An example is shown in Figure~\ref{fig:background}.
 \begin{figure}[t]
   \centering
   \includegraphics[width=4in]{figures/background.jpg}  
-  \caption[background subtraction]{Background subtraction example from \shortciteA{itseez2017theopencv}.}
+  \caption[Background Subtraction]{Background subtraction example from \shortciteA{itseez2017theopencv}.}
   \label{fig:background}
 \end{figure}
 
 Background subtraction is easy to implement, but it is slow, because background subtraction has to perform its calculation over the whole frame on every frame. Large variance in the background can lead to false negatives, and long-term scene change with a slowly-changing background may not work well.
+
 
 
 \section{Classification}
@@ -34,7 +35,7 @@ The nearest neighbor decision rule assigns a label to an unclassified sample poi
 \begin{figure}[t]
   \centering
   \includegraphics[width=2in]{figures/knn.jpg}   
-  \caption[knn]{Example of nearest neighbor classification.}
+  \caption[Example of nearest neighbor classification]{Example of nearest neighbor classification.}
   \label{fig:knn}
 \end{figure}
 
@@ -44,7 +45,7 @@ A support vector machine (SVM) is a feature-based classifier. Suppose we have a 
 \begin{figure}[t]
   \centering
   \includegraphics[width=2in]{figures/svm.jpg}   
-  \caption[svm]{Example of large margin classification with a linear hyperplane. H1 does not separate the classes. H2 does separate the classes, but with a small margin. H3 separates the classes with a larger margin. }
+  \caption[Support Vector Machines]{Example of large margin classification with a linear hyperplane. H1 does not separate the classes. H2 does separate the classes, but with a small margin. H3 separates the classes with a larger margin. }
   \label{fig:svm}
 \end{figure}
 
@@ -60,7 +61,7 @@ A CNN usually consists of one or more convolutional layers with subsampling step
 \begin{figure}[t]
   \centering
   \includegraphics[width=6in]{figures/cnn.jpg}   
-  \caption[cnn]{Example convolutional neural network (CNN). Reprinted from \shortciteA{deeplearing}.}
+  \caption[Example convolutional neural network (CNN)]{Example convolutional neural network (CNN). Reprinted from \shortciteA{deeplearing}.}
   \label{fig:cnn}
 \end{figure}
 
@@ -73,7 +74,7 @@ Object detection is a very important part of a computer vision system. Detection
 
 
 \subsection{Haar Cascades}
-Object detection using Haar feature-based cascades is one of the most efficient methods to detect an object in the image. Invented by \shortciteA{viola2001rapid}, this method requires a medium number of input images (positive images and negative images) for training. After training, we use the resulting model to detect objects in other images.
+Object detection using Haar feature-based cascades is one of the most efficient methods to detect an object in the image. Invented by \shortciteA{viola2004robust}, this method requires a medium number of input images (positive images and negative images) for training. After training, we use the resulting model to detect objects in other images.
 
 Positive images are images of an object, and negative images are images without that object. In training, we extract the same set of features from both positive and negative images. Each feature is a single value extracted using a fixed binary kernel as shown in Figure~\ref{fig:haar}.
 
@@ -86,7 +87,7 @@ Applying the resulting complete \textquotedblleft monolithic" committee of weak 
 \begin{figure}[t]
   \centering
   \includegraphics[width=1.5in]{figures/haar.jpg}  
-  \caption[Haar kernel ]{Example Haar-like kernels. The sum of the intensities of the pixels in the dark regions is subtracted from those of the light regions. Reprinted from \shortciteA{viola2001rapid}. }
+  \caption[Example Haar-like kernels]{Example Haar-like kernels. The sum of the intensities of the pixels in the dark regions is subtracted from those of the light regions. Reprinted from \shortciteA{viola2004robust}. }
   \label{fig:haar}
 \end{figure}
 
@@ -98,23 +99,23 @@ Histogram of Oriented Gradients (HOG) \cite{dalal2005histograms} is an object de
 \begin{figure}[t]
   \centering
   \includegraphics[width=5in]{figures/hog.jpg}  
-  \caption[HOG]{HOG classifier. a) The average gradient image over the training examples.  (b) Each “pixel”
+  \caption[HOG classifier]{HOG classifier. a) The average gradient image over the training examples.  (b) Each “pixel”
 shows the maximum positive SVM weight in the block centred on the pixel. (c) Likewise for the negative SVM weights. (d) A test image.
 (e) The test image R-HOG descriptor. (f,g) The R-HOG descriptor weighted by respectively the positive and the negative SVM weights. Reprinted from \shortciteA{dalal2005histograms}. }
   \label{fig:hog}
 \end{figure}
 
 \subsection{Region-based CNNs}
-Region-based CNNs (R-CNNs ; \citeA{girshick2014rich}) combine region proposals with convolutional neural networks (CNNs). When an input image is presented, the system extracts region proposals bottom-up to localize and segment objects. An R-CNN creates region proposals using a process called Selective Search. Selective Search, regardless of the size or aspect ratio of the candidate region, warps the set of pixels in a bounding box around it to a constant size.
+Region-based CNNs (R-CNNs) \cite{girshick2014rich} combine region proposals with convolutional neural networks (CNNs). When an input image is presented, the system extracts region proposals bottom-up to localize and segment objects. A R-CNN creates region proposals using a process called Selective Search. Selective Search, regardless of the size or aspect ratio of the candidate region, warps the set of pixels in a bounding box around it to a constant size. Once the warped proposals are created, the R-CNN passes them through a convolutional neural network in order to compute features. Once features are extracted and training labels are applied, the R-CNN procedure optimizes one linear SVM per class. Then, for each class, the R-CNN scores each extracted feature vector using the SVM trained for that class. Given all scored regions in an image, R-CNN applies a greedy non-maximum suppression method that rejects regions having an intersection-over union (IoU) overlap with a higher-score selected region larger than a learned threshold. 
 
+R-CNN starts with the ImageNet pre-trained CNN. A SVM training set is created by running the region proposal model over the training set and putting examples with high ground truth IoU into the positive set and other proposals into the negative set. A linear SVM is trained on these positive plus \textquotedblleft hard negative" examples. However, fine tuning such a model on new data turned out to be difficult. When the researchers used the same method of selecting fine tuning examples as they did for the original SVMs, the performance was worse than result with the typical method for fine tuning, in which we update the final softmax layer of the fine-tuned CNN. The softmax classifier was trained on randomly-sampled negative examples rather than on the subset of \textquotedblleft hard negatives" used for SVM training. As result, RCNN uses softmax and random sampling of negatives for fine tuning.
 
- Once the warped proposals are created, the R-CNN passes it through a convolution neural network.
-Then at lest time, each region is classified using class-specific linear SVMs. Linear SVMs are used at the output to make it easy to review the classifier model and fine-tune it. The final step is find the tight dimensions of the object. R-CNN runs a simple linear regression on the region proposal to generate tighter bounding box coordinates for the final result. This method yields good results, but it requires a large amount of training data. R-CNNs require a forward pass of the CNN for every single region proposal, and we also have to train three different models: the CNN to generate image features, the classifier to predict the class, and the regression model to find the tight dimensions of the candidate object. These reasons make R-CNNs slow. An overview of the system is shown in Figure~\ref{fig:rcnn}.
+At test time, each region is classified using class-specific linear SVMs. Linear SVMs are used at the output to make it relatively easy to review the classifier model and fine-tune it. The final step is find the tight dimensions of the object bounding box. The R-CNN runs a simple linear regression on the region proposal to generate tighter bounding box coordinates for the final result. This method yields good results, but it requires a large amount of training data and a large amount of compute power. R-CNNs require a forward pass of the CNN for every single region proposal, and we also have to train three different models: the CNN to generate image features, the classifier to predict the class, and the regression model to find the tight dimensions of the candidate object. These factors make R-CNNs slow. An overview of the system is shown in Figure~\ref{fig:rcnn}.
 
 \begin{figure}[t]
   \centering
   \includegraphics[width=4in]{figures/rcnn.jpg}  
-  \caption[R-CNNs]{Object detection system overview. Reprinted from \shortciteA{girshick2014rich}. }
+  \caption[Object detection system overview]{Object detection system overview. Reprinted from \shortciteA{girshick2014rich}. }
   \label{fig:rcnn}
 \end{figure}
 
@@ -129,18 +130,18 @@ The Fast Region-based Convolutional Network method (Fast R-CNN) by \shortciteA{g
 \end{figure}
 
 \subsection{Faster R-CNN}
-The faster R-CNN \cite{ren2015faster} is built from previous work; like the Fast R-CNN and the basic R-CNN. In previous works the proposals are created using Selective Search, but this is a slow process that was found to be the bottleneck of overall process. Faster R-CNN introduces a Region Proposal Network (RPN). A RPN is a fully convolutional network that simultaneously predicts object bounds and objectness scores at each position. Faster R-CNN reuses the same CNN results for region proposals instead of running a separate selective search algorithm. See Figure~\ref{fig:fasterrcnn}. The Region Proposal Network works by passing a sliding window over the CNN feature map and at each window, outputting K potential bounding boxes and scores for how good each of those boxes is expected to be. The model then passes each bounding box that is likely to be an object to a Fast R-CNN to generate a classification and tightened bounding boxes as previously described.
+The faster R-CNN \cite{ren2015faster} is built from previous work especially, the Fast R-CNN and the basic R-CNN. In previous work, the proposals are created using Selective Search, but this is a slow process that was found to be the bottleneck in the overall process. Faster R-CNN introduces a Region Proposal Network (RPN). A RPN is a fully convolutional network that simultaneously predicts object bounds and objectness scores at each position. Faster R-CNN reuses the same CNN results for region proposals instead of running a separate selective search algorithm. See Figure~\ref{fig:fasterrcnn}. The Region Proposal Network works by passing a sliding window over the CNN feature map and at each window, outputting K potential bounding boxes and scores for how good each of those boxes is expected to be. The model then passes each bounding box that is likely to be an object to a Fast R-CNN to generate a classification and tightened bounding boxes as previously described.
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=2in]{figures/fasterrcnn.jpg}  
-	\caption[Faster R-CNNs]{Faster R-CNN. Reprinted from \shortciteA{ren2015faster}. }
+	\caption[Faster R-CNN]{Faster R-CNN. Reprinted from \shortciteA{ren2015faster}. }
 	\label{fig:fasterrcnn}
 \end{figure}
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=3in]{figures/rpn.jpg}  
-	\caption[RPN]{Region Proposal Network (RPN). Reprinted from \shortciteA{ren2015faster}. }
+	\caption[Region Proposal Network (RPN)]{Region Proposal Network (RPN). Reprinted from \shortciteA{ren2015faster}. }
 	\label{fig:rpn}
 \end{figure}
 
@@ -333,14 +334,14 @@ When the correction step is finished, we repeat the prediction step, as shown in
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=3in]{figures/kalmanprocess.jpg}  
-	\caption[kalman]{Overview of processing by a Kalman filter. An initial estimated of the state after posterior error distribution care recursively updated as new measurements arrive. }
+	\caption[Overview of processing by a Kalman filter]{Overview of processing by a Kalman filter. An initial estimated of the state after posterior error distribution care recursively updated as new measurements arrive. }
 	\label{fig:kalmanprocess}
 \end{figure}
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=4in]{figures/kalman.jpg}  
-	\caption[kalman]{The cycle of a Kalman filter. First the filter predicts the next state from the provided state, then if applicable, the noisy measurement information is incorporated in the correction phase. The cycle is repeated. }
+	\caption[The cycle of a Kalman filter]{The cycle of a Kalman filter. First the filter predicts the next state from the provided state, then if applicable, the noisy measurement information is incorporated in the correction phase. The cycle is repeated. }
 	\label{fig:kalman}
 \end{figure}
 

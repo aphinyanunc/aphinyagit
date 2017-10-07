@@ -1,14 +1,17 @@
-\contentsline {figure}{\numberline {2.1}{\ignorespaces background subtraction}}{5}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces knn}}{5}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces svm}}{6}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces cnn}}{7}
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Haar kernel }}{8}
-\contentsline {figure}{\numberline {2.6}{\ignorespaces HOG}}{9}
-\contentsline {figure}{\numberline {2.7}{\ignorespaces R-CNNs}}{9}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Background Subtraction}}{5}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Example of nearest neighbor classification}}{5}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Support Vector Machines}}{6}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Example convolutional neural network (CNN)}}{7}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Example Haar-like kernels}}{8}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces HOG classifier}}{9}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Object detection system overview}}{10}
 \contentsline {figure}{\numberline {2.8}{\ignorespaces FAST R-CNNs}}{10}
-\contentsline {figure}{\numberline {2.9}{\ignorespaces Faster R-CNNs}}{10}
-\contentsline {figure}{\numberline {2.10}{\ignorespaces RPN}}{11}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Faster R-CNN}}{11}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Region Proposal Network (RPN)}}{11}
 \contentsline {figure}{\numberline {2.11}{\ignorespaces Learning flow chart}}{13}
-\contentsline {figure}{\numberline {2.12}{\ignorespaces kalman}}{15}
-\contentsline {figure}{\numberline {2.13}{\ignorespaces kalman}}{16}
-\contentsline {figure}{\numberline {A.1}{\ignorespaces CCTV monitoring room in Appendix A.}}{24}
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Overview of processing by a Kalman filter}}{16}
+\contentsline {figure}{\numberline {2.13}{\ignorespaces The cycle of a Kalman filter}}{16}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces System workflow}}{18}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces The result of Optical flow}}{19}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Direction from learning velocity}}{19}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces The error of the system}}{20}
